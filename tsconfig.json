@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "lib": ["es6", "dom"],
+    "allowJs": false,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "types": ["node", "jest", "@testing-library/jest-dom"]
+  },
+  "exclude": ["node_modules", "dist", "public"]
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "title": "React",
+    "description": "A JavaScript library for building rich user interfaces",
+    "url": "https://reactjs.org/"
+  },
+  {
+    "title": "esbuild",
+    "description": "A blazing fast JavaScript bundler with rich customizations",
+    "url": "https://esbuild.github.io/"
+  },
+  {
+    "title": "TailwindCSS",
+    "description": "A utility-first CSS framework to build modern websites",
+    "url": "https://tailwindcss.com/"
+  },
+  {
+    "title": "ESLint",
+    "description": "A JavaScript static analyzer that detects problems quickly",
+    "url": "https://eslint.org/"
+  },
+  {
+    "title": "Prettier",
+    "description": "An opinionated code formatter that supports many languages",
+    "url": "https://prettier.io/"
+  },
+  {
+    "title": "Jest",
+    "description": "A powerful JavaScript testing framework that focuses on simplicity",
+    "url": "https://jestjs.io/"
+  },
+  {
+    "title": "TypeScript",
+    "description": "Strongly typed programming language for JavaScript",
+    "url": "https://www.typescriptlang.org/"
+  },
+  {
+    "title": "Framer Motion",
+    "description": "A rich and extensive motion library for React",
+    "url": "https://www.framer.com/motion/"
+  }
+]

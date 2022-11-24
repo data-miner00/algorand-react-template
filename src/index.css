@@ -1,0 +1,13 @@
+/*
+ * Compile directly from Tailwind CLI, do not import to `index.tsx`
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  h1.my-awesome-h1 {
+    @apply text-center text-3xl font-extrabold mb-6;
+  }
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#313131" />
+    <meta
+      name="description"
+      content="Application template with React and Esbuild"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>React ESBuild</title>
+    <link rel="stylesheet" href="/dist/bundle.css" />
+    <link rel="stylesheet" href="/dist/tailwind.css" />
+    <script type="text/javascript">
+      if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
+    <script type="text/javascript">
+      global = globalThis;
+    </script>
+  </head>
+  <body class="bg-gray-100 dark:bg-gray-700 text-slate-700 dark:text-gray-50">
+    <div id="root"></div>
+
+    <noscript
+      >Your browser does not support JavaScript or it has been disabled. Try a
+      browser that supports JavaScript or allow JavaScript to run on your
+      browser to experience this site.</noscript
+    >
+
+    <script src="/dist/bundle.js"></script>
+  </body>
+</html>
