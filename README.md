@@ -249,6 +249,7 @@ List of resources that are helpful and would like to give credit to.
 - [GitHub Actions](https://github.com/marketplace?type=actions)
 - [Pnpm CI](https://pnpm.io/continuous-integration)
 - [global is not defined](https://github.com/WalletConnect/walletconnect-monorepo/issues/1144)
+- [node-stdlib-browser](https://github.com/niksy/node-stdlib-browser#esbuild)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
