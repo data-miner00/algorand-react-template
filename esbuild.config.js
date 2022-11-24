@@ -1,6 +1,8 @@
 var esbuild = require("esbuild");
 var inlineImage = require("esbuild-plugin-inline-image");
 var dotenv = require("dotenv");
+var nodeLib = require("node-stdlib-browser/helpers/esbuild/plugin");
+var stdLibBrowser = require("node-stdlib-browser");
 
 dotenv.config();
 
@@ -14,6 +16,7 @@ var define = {
   process: JSON.stringify({
     env: variables,
   }),
+  Buffer: "Buffer",
 };
 
 esbuild
@@ -24,7 +27,7 @@ esbuild
     format: "cjs",
     sourcemap: false,
     outfile: "public/dist/bundle.js",
-    plugins: [inlineImage()],
+    plugins: [inlineImage(), nodeLib(stdLibBrowser)],
     publicPath: "/dist",
     loader: {
       ".png": "file",
@@ -32,6 +35,7 @@ esbuild
       ".jpg": "file",
     },
     define,
+    inject: [require.resolve("node-stdlib-browser/helpers/esbuild/shim")],
     watch: {
       onRebuild(error, result) {
         var now = new Date();
