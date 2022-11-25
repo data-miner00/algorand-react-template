@@ -7,7 +7,7 @@
     "watch": "node esbuild.config.js",
     "build": "esbuild src/index.tsx --bundle --minify --outfile=public/dist/bundle.js",
     "start": "lite-server",
-    "lint": "eslint src/**/*.tsx",
+    "lint": "eslint src/**/*.{ts,tsx}",
     "test": "jest",
     "watch:tw": "tailwindcss -i ./src/index.css -o ./public/dist/tailwind.css --watch",
     "build:tw": "tailwindcss -i ./src/index.css -o ./public/dist/tailwind.css --minify",
