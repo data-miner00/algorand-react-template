@@ -8,16 +8,26 @@ import logoFull from "../assets/algorand_full.png";
 import { getVariable, Variable } from "../utils/getVariable";
 
 function Home(): JSX.Element {
-  const [currentAccount, setCurrentAccount] = useState<string>();
+  const [currentAccount, setCurrentAccount] = useState<string>("");
   const [globalCount, setGlobalCount] = useState(0);
-  const [walletbalance, setwalletbalance] = useState();
+  const [walletbalance, setWalletbalance] = useState();
   const [connector, setConnector] = useState<WalletConnect>();
   const [connected, setConnected] = useState(false);
 
-  const app_address = getVariable<number>(Variable.REACT_APP_ALGORAND_APPID);
+  const appAddress = getVariable<number>(Variable.REACT_APP_ALGORAND_APPID);
 
-  async function checkIfWalletIsConnected() {
-    if (!connector) {
+  console.log(
+    algosdk,
+    formatJsonRpcRequest,
+    globalCount,
+    setGlobalCount,
+    walletbalance,
+    setWalletbalance,
+    connected
+  );
+
+  function checkIfWalletIsConnected(): void {
+    if (connector == null) {
       return;
     }
 
@@ -43,7 +53,7 @@ function Home(): JSX.Element {
     }
   }
 
-  async function connectWallet() {
+  async function connectWallet(): Promise<void> {
     try {
       const bridge = "https://bridge.walletconnect.org";
       const connector = new WalletConnect({ bridge, qrcodeModal: QRCodeModal });
@@ -62,7 +72,7 @@ function Home(): JSX.Element {
       }
 
       connector.on("connect", (error, payload) => {
-        if (error) {
+        if (error != null) {
           throw error;
         }
 
@@ -74,7 +84,7 @@ function Home(): JSX.Element {
       });
 
       connector.on("session_update", (error, payload) => {
-        if (error) {
+        if (error != null) {
           throw error;
         }
 
@@ -83,7 +93,7 @@ function Home(): JSX.Element {
       });
 
       connector.on("disconnect", (error, payload) => {
-        if (error) {
+        if (error != null) {
           throw error;
         }
 
@@ -96,33 +106,40 @@ function Home(): JSX.Element {
     }
   }
 
-  async function disconnectWallet() {
-    connector?.killSession();
+  function disconnectWallet(): void {
+    void connector?.killSession();
     console.log("Killing session for wallet with address: ", currentAccount);
     setCurrentAccount("");
     setConnector(undefined);
     setConnected(false);
   }
 
-  function increment() {}
-  function decrement() {}
+  function increment(): void {
+    console.log("inc");
+  }
+
+  function decrement(): void {
+    console.log("dec");
+  }
 
   useEffect(() => {
     checkIfWalletIsConnected();
     console.log("Current account: ", currentAccount);
-    console.log(app_address);
+    console.log(appAddress);
   }, [currentAccount]);
 
-  const ConnectWalletButton = () => (
+  const ConnectWalletButton = (): JSX.Element => (
     <button
       className="rounded-xl px-6 py-4 text-lg bg-teal-500 hover:bg-teal-500/75 my-5 text-white"
-      onClick={connectWallet}
+      onClick={() => {
+        void connectWallet();
+      }}
     >
       Connect Wallet
     </button>
   );
 
-  const DisplayCount = () => (
+  const DisplayCount = (): JSX.Element => (
     <>
       <button className="mathButton" onClick={increment}>
         Add
@@ -144,7 +161,7 @@ function Home(): JSX.Element {
         className="block mx-auto h-20"
       />
       <div className="">
-        {currentAccount ? <DisplayCount /> : <ConnectWalletButton />}
+        {currentAccount !== "" ? <DisplayCount /> : <ConnectWalletButton />}
       </div>
     </div>
   );
