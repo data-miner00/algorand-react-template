@@ -1,15 +1,10 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { render } from "@testing-library/react";
 
 import Header from "../Header";
 
-it("renders the content properly", () => {
-  render(
-    <MemoryRouter>
-      <Header />
-    </MemoryRouter>
-  );
-  const helloElement = screen.getByText(/home/i);
-  expect(helloElement).toBeInTheDocument();
+describe("Header component", () => {
+  it("should render", () => {
+    render(<Header />);
+  });
 });
