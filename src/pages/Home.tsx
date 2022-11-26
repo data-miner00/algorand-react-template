@@ -115,11 +115,11 @@ function Home(): JSX.Element {
   }
 
   function increment(): void {
-    console.log("inc");
+    setGlobalCount((previous) => ++previous);
   }
 
   function decrement(): void {
-    console.log("dec");
+    setGlobalCount((previous) => --previous);
   }
 
   useEffect(() => {
@@ -140,25 +140,33 @@ function Home(): JSX.Element {
   );
 
   const DisplayCount = (): JSX.Element => (
-    <>
-      <button className="mathButton" onClick={increment}>
+    <div className="flex justify-center items-center gap-4 my-4">
+      <div className="border border-solid border-gray-400 px-4 py-2 rounded">
+        {globalCount}
+      </div>
+      <div className="h-[30px] w-[1px] bg-gray-300 mx-2" />
+      <button className="px-4 py-2 rounded bg-teal-200" onClick={increment}>
         Add
       </button>
-      <button className="mathButton" onClick={decrement}>
+      <button className="px-4 py-2 rounded bg-teal-200" onClick={decrement}>
         Deduct
       </button>
-      <button className="mathButton" onClick={disconnectWallet}>
+      <div className="h-[30px] w-[1px] bg-gray-300 mx-2" />
+      <button
+        className="px-4 py-2 rounded bg-red-600 text-white"
+        onClick={disconnectWallet}
+      >
         Disconnect Wallet
       </button>
-    </>
+    </div>
   );
 
   return (
-    <div className="bg-gray-200 max-w-[1400px] mx-auto h-[500px] flex justify-center items-center flex-col">
+    <div className="max-w-[1400px] mx-auto h-[500px] flex justify-center items-center flex-col">
       <img
         src={logoFull}
         alt="Algorand Full Logo"
-        className="block mx-auto h-20"
+        className="block mx-auto h-20 dark:filter dark:invert"
       />
       <div className="">
         {currentAccount !== "" ? <DisplayCount /> : <ConnectWalletButton />}
