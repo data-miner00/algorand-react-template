@@ -106,16 +106,16 @@ function Home(): JSX.Element {
 
   async function increment(): Promise<void> {
     setLoading(true);
-    let sender = currentAccount;
-    let appArgs = [new Uint8Array(Buffer.from("Add"))];
-    let params = await algodClient.getTransactionParams().do();
+    const sender = currentAccount;
+    const appArgs = [new Uint8Array(Buffer.from("Add"))];
+    const params = await algodClient.getTransactionParams().do();
     const txn = algosdk.makeApplicationNoOpTxn(
       sender,
       params,
       appAddress,
       appArgs
     );
-    let txId = txn.txID().toString();
+    const txId = txn.txID().toString();
 
     const txns = [txn];
     const txnsToSign = txns.map((txn) => {
@@ -132,15 +132,17 @@ function Home(): JSX.Element {
     const result = await connector?.sendCustomRequest(request);
 
     const decodedResult = result.map((element: any) => {
-      return element ? new Uint8Array(Buffer.from(element, "base64")) : null;
+      return element !== null
+        ? new Uint8Array(Buffer.from(element, "base64"))
+        : null;
     });
 
     await algodClient.sendRawTransaction(decodedResult).do();
     await algosdk.waitForConfirmation(algodClient, txId, 2);
-    let transactionResponse = await algodClient
+    const transactionResponse = await algodClient
       .pendingTransactionInformation(txId)
       .do();
-    console.log("Called app-id: ", transactionResponse["txn"]["txn"]["apid"]);
+    console.log("Called app-id: ", transactionResponse.txn.txn.apid);
 
     if (transactionResponse["global-state-delta"] !== undefined) {
       console.log(
@@ -155,16 +157,16 @@ function Home(): JSX.Element {
 
   async function decrement(): Promise<void> {
     setLoading(true);
-    let sender = currentAccount;
-    let appArgs = [new Uint8Array(Buffer.from("Deduct"))];
-    let params = await algodClient.getTransactionParams().do();
+    const sender = currentAccount;
+    const appArgs = [new Uint8Array(Buffer.from("Deduct"))];
+    const params = await algodClient.getTransactionParams().do();
     const txn = algosdk.makeApplicationNoOpTxn(
       sender,
       params,
       appAddress,
       appArgs
     );
-    let txId = txn.txID().toString();
+    const txId = txn.txID().toString();
 
     const txns = [txn];
     const txnsToSign = txns.map((txn) => {
@@ -181,15 +183,17 @@ function Home(): JSX.Element {
     const result = await connector?.sendCustomRequest(request);
 
     const decodedResult = result.map((element: any) => {
-      return element ? new Uint8Array(Buffer.from(element, "base64")) : null;
+      return element !== null
+        ? new Uint8Array(Buffer.from(element, "base64"))
+        : null;
     });
 
     await algodClient.sendRawTransaction(decodedResult).do();
     await algosdk.waitForConfirmation(algodClient, txId, 2);
-    let transactionResponse = await algodClient
+    const transactionResponse = await algodClient
       .pendingTransactionInformation(txId)
       .do();
-    console.log("Called app-id: ", transactionResponse["txn"]["txn"]["apid"]);
+    console.log("Called app-id: ", transactionResponse.txn.txn.apid);
 
     if (transactionResponse["global-state-delta"] !== undefined) {
       console.log(
@@ -203,13 +207,12 @@ function Home(): JSX.Element {
   }
 
   async function getCount(): Promise<void> {
-    let applicationInfoResponse = await algodClient
+    const applicationInfoResponse = await algodClient
       .getApplicationByID(appAddress)
       .do();
-    let globalState = [];
-    globalState = applicationInfoResponse["params"]["global-state"];
-    console.log("count is: ", globalState[0]["value"]["uint"]);
-    setGlobalCount(globalState[0]["value"]["uint"]);
+    const globalState = applicationInfoResponse.params["global-state"];
+    console.log("count is: ", globalState[0].value.uint);
+    setGlobalCount(globalState[0].value.uint);
   }
 
   useEffect(() => {
@@ -237,19 +240,24 @@ function Home(): JSX.Element {
         target="_blank"
         className="block border-2 border-solid dark:hover:bg-white/5 border-violet-300 px-4 py-2 rounded hover:bg-violet-100"
         title="View state in Devex"
+        rel="noreferrer"
       >
         {globalCount}
       </a>
       <div className="h-[30px] w-[1px] bg-gray-300 mx-2" />
       <button
         className="px-4 py-2 rounded dark:bg-white dark:hover:bg-gray-100 dark:text-black bg-gray-200 hover:bg-gray-200/70"
-        onClick={increment}
+        onClick={() => {
+          void increment();
+        }}
       >
         Add
       </button>
       <button
         className="px-4 py-2 rounded dark:bg-white dark:hover:bg-gray-100 dark:text-black bg-gray-200 hover:bg-gray-200/70"
-        onClick={decrement}
+        onClick={() => {
+          void decrement();
+        }}
       >
         Deduct
       </button>
