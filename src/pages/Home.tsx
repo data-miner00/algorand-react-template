@@ -141,19 +141,30 @@ function Home(): JSX.Element {
 
   const DisplayCount = (): JSX.Element => (
     <div className="flex justify-center items-center gap-4 my-4">
-      <div className="border border-solid border-gray-400 px-4 py-2 rounded">
+      <a
+        href=""
+        target="_blank"
+        className="block border-2 border-solid border-gray-300 px-4 py-2 rounded hover:bg-slate-200"
+        title="View state in Devex"
+      >
         {globalCount}
-      </div>
+      </a>
       <div className="h-[30px] w-[1px] bg-gray-300 mx-2" />
-      <button className="px-4 py-2 rounded bg-teal-200" onClick={increment}>
+      <button
+        className="px-4 py-2 rounded bg-teal-200 hover:bg-teal-200/70"
+        onClick={increment}
+      >
         Add
       </button>
-      <button className="px-4 py-2 rounded bg-teal-200" onClick={decrement}>
+      <button
+        className="px-4 py-2 rounded bg-teal-200 hover:bg-teal-200/70"
+        onClick={decrement}
+      >
         Deduct
       </button>
       <div className="h-[30px] w-[1px] bg-gray-300 mx-2" />
       <button
-        className="px-4 py-2 rounded bg-red-600 text-white"
+        className="px-4 py-2 rounded bg-red-600 hover:bg-red-600/80 text-white"
         onClick={disconnectWallet}
       >
         Disconnect Wallet
