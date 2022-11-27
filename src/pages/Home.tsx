@@ -251,20 +251,20 @@ function Home(): JSX.Element {
       <a
         href={`https://testnet.algoexplorer.io/application/${appAddress}`}
         target="_blank"
-        className="block border-2 border-solid border-violet-300 px-4 py-2 rounded hover:bg-violet-100"
+        className="block border-2 border-solid dark:hover:bg-white/5 border-violet-300 px-4 py-2 rounded hover:bg-violet-100"
         title="View state in Devex"
       >
         {globalCount}
       </a>
       <div className="h-[30px] w-[1px] bg-gray-300 mx-2" />
       <button
-        className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-200/70"
+        className="px-4 py-2 rounded dark:bg-white dark:hover:bg-gray-100 dark:text-black bg-gray-200 hover:bg-gray-200/70"
         onClick={increment}
       >
         Add
       </button>
       <button
-        className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-200/70"
+        className="px-4 py-2 rounded dark:bg-white dark:hover:bg-gray-100 dark:text-black bg-gray-200 hover:bg-gray-200/70"
         onClick={decrement}
       >
         Deduct
