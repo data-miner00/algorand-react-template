@@ -6,6 +6,7 @@ import { formatJsonRpcRequest } from "@json-rpc-tools/utils";
 
 import logoFull from "../assets/algorand_full.png";
 import { getVariable, Variable } from "../utils/getVariable";
+import Loading from "../components/Loading";
 
 function Home(): JSX.Element {
   const [currentAccount, setCurrentAccount] = useState<string>("");
@@ -13,8 +14,13 @@ function Home(): JSX.Element {
   const [walletbalance, setWalletbalance] = useState();
   const [connector, setConnector] = useState<WalletConnect>();
   const [connected, setConnected] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const appAddress = getVariable<number>(Variable.REACT_APP_ALGORAND_APPID);
+  const appAddress = Number(getVariable(Variable.REACT_APP_ALGORAND_APPID));
+  const algodToken = getVariable(Variable.REACT_APP_ALGORAND_ALGOD_TOKEN);
+  const algodServer = getVariable(Variable.REACT_APP_ALGORAND_ALGOD_SERVER);
+  const algodPort = getVariable<number>(Variable.REACT_APP_ALGORAND_ALGOD_PORT);
+  const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
   console.log(
     algosdk,
@@ -114,16 +120,117 @@ function Home(): JSX.Element {
     setConnected(false);
   }
 
-  function increment(): void {
-    setGlobalCount((previous) => ++previous);
+  async function increment(): Promise<void> {
+    setLoading(true);
+    let sender = currentAccount;
+    let appArgs = [new Uint8Array(Buffer.from("Add"))];
+    let params = await algodClient.getTransactionParams().do();
+    const txn = algosdk.makeApplicationNoOpTxn(
+      sender,
+      params,
+      appAddress,
+      appArgs
+    );
+    let txId = txn.txID().toString();
+
+    const txns = [txn];
+    const txnsToSign = txns.map((txn) => {
+      const encodedTxn = Buffer.from(
+        algosdk.encodeUnsignedTransaction(txn)
+      ).toString("base64");
+      return {
+        txn: encodedTxn,
+      };
+    });
+
+    const requestParams = [txnsToSign];
+    const request = formatJsonRpcRequest("algo_signTxn", requestParams);
+    const result = await connector?.sendCustomRequest(request);
+
+    const decodedResult = result.map((element: any) => {
+      return element ? new Uint8Array(Buffer.from(element, "base64")) : null;
+    });
+
+    await algodClient.sendRawTransaction(decodedResult).do();
+    await algosdk.waitForConfirmation(algodClient, txId, 2);
+    let transactionResponse = await algodClient
+      .pendingTransactionInformation(txId)
+      .do();
+    console.log("Called app-id: ", transactionResponse["txn"]["txn"]["apid"]);
+
+    if (transactionResponse["global-state-delta"] !== undefined) {
+      console.log(
+        "Global state updated: ",
+        transactionResponse["global-state-delta"]
+      );
+      setGlobalCount((previous) => ++previous);
+    }
+
+    setLoading(false);
   }
 
-  function decrement(): void {
-    setGlobalCount((previous) => --previous);
+  async function decrement(): Promise<void> {
+    setLoading(true);
+    let sender = currentAccount;
+    let appArgs = [new Uint8Array(Buffer.from("Deduct"))];
+    let params = await algodClient.getTransactionParams().do();
+    const txn = algosdk.makeApplicationNoOpTxn(
+      sender,
+      params,
+      appAddress,
+      appArgs
+    );
+    let txId = txn.txID().toString();
+
+    const txns = [txn];
+    const txnsToSign = txns.map((txn) => {
+      const encodedTxn = Buffer.from(
+        algosdk.encodeUnsignedTransaction(txn)
+      ).toString("base64");
+      return {
+        txn: encodedTxn,
+      };
+    });
+
+    const requestParams = [txnsToSign];
+    const request = formatJsonRpcRequest("algo_signTxn", requestParams);
+    const result = await connector?.sendCustomRequest(request);
+
+    const decodedResult = result.map((element: any) => {
+      return element ? new Uint8Array(Buffer.from(element, "base64")) : null;
+    });
+
+    await algodClient.sendRawTransaction(decodedResult).do();
+    await algosdk.waitForConfirmation(algodClient, txId, 2);
+    let transactionResponse = await algodClient
+      .pendingTransactionInformation(txId)
+      .do();
+    console.log("Called app-id: ", transactionResponse["txn"]["txn"]["apid"]);
+
+    if (transactionResponse["global-state-delta"] !== undefined) {
+      console.log(
+        "Global state updated: ",
+        transactionResponse["global-state-delta"]
+      );
+      setGlobalCount((previous) => --previous);
+    }
+
+    setLoading(false);
+  }
+
+  async function getCount(): Promise<void> {
+    let applicationInfoResponse = await algodClient
+      .getApplicationByID(appAddress)
+      .do();
+    let globalState = [];
+    globalState = applicationInfoResponse["params"]["global-state"];
+    console.log("count is: ", globalState[0]["value"]["uint"]);
+    setGlobalCount(globalState[0]["value"]["uint"]);
   }
 
   useEffect(() => {
     checkIfWalletIsConnected();
+    void getCount();
     console.log("Current account: ", currentAccount);
     console.log(appAddress);
   }, [currentAccount]);
@@ -142,22 +249,22 @@ function Home(): JSX.Element {
   const DisplayCount = (): JSX.Element => (
     <div className="flex justify-center items-center gap-4 my-4">
       <a
-        href=""
+        href={`https://testnet.algoexplorer.io/application/${appAddress}`}
         target="_blank"
-        className="block border-2 border-solid border-gray-300 px-4 py-2 rounded hover:bg-slate-200"
+        className="block border-2 border-solid border-violet-300 px-4 py-2 rounded hover:bg-violet-100"
         title="View state in Devex"
       >
         {globalCount}
       </a>
       <div className="h-[30px] w-[1px] bg-gray-300 mx-2" />
       <button
-        className="px-4 py-2 rounded bg-teal-200 hover:bg-teal-200/70"
+        className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-200/70"
         onClick={increment}
       >
         Add
       </button>
       <button
-        className="px-4 py-2 rounded bg-teal-200 hover:bg-teal-200/70"
+        className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-200/70"
         onClick={decrement}
       >
         Deduct
@@ -182,6 +289,7 @@ function Home(): JSX.Element {
       <div className="">
         {currentAccount !== "" ? <DisplayCount /> : <ConnectWalletButton />}
       </div>
+      {loading && <Loading />}
     </div>
   );
 }
