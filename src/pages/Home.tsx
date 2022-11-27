@@ -11,9 +11,7 @@ import Loading from "../components/Loading";
 function Home(): JSX.Element {
   const [currentAccount, setCurrentAccount] = useState<string>("");
   const [globalCount, setGlobalCount] = useState(0);
-  const [walletbalance, setWalletbalance] = useState();
   const [connector, setConnector] = useState<WalletConnect>();
-  const [connected, setConnected] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const appAddress = Number(getVariable(Variable.REACT_APP_ALGORAND_APPID));
@@ -21,16 +19,6 @@ function Home(): JSX.Element {
   const algodServer = getVariable(Variable.REACT_APP_ALGORAND_ALGOD_SERVER);
   const algodPort = getVariable<number>(Variable.REACT_APP_ALGORAND_ALGOD_PORT);
   const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
-
-  console.log(
-    algosdk,
-    formatJsonRpcRequest,
-    globalCount,
-    setGlobalCount,
-    walletbalance,
-    setWalletbalance,
-    connected
-  );
 
   function checkIfWalletIsConnected(): void {
     if (connector == null) {
@@ -74,7 +62,6 @@ function Home(): JSX.Element {
         const { accounts } = connector;
         const account = accounts[0];
         setCurrentAccount(account);
-        setConnected(true);
       }
 
       connector.on("connect", (error, payload) => {
@@ -85,7 +72,6 @@ function Home(): JSX.Element {
         const { accounts } = payload.params[0];
         console.log("connected with account: ", accounts[0]);
         setConnector(connector);
-        setConnected(true);
         setCurrentAccount(accounts[0]);
       });
 
@@ -104,7 +90,6 @@ function Home(): JSX.Element {
         }
 
         setCurrentAccount("");
-        setConnected(false);
         setConnector(undefined);
       });
     } catch (error) {
@@ -117,7 +102,6 @@ function Home(): JSX.Element {
     console.log("Killing session for wallet with address: ", currentAccount);
     setCurrentAccount("");
     setConnector(undefined);
-    setConnected(false);
   }
 
   async function increment(): Promise<void> {
