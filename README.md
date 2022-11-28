@@ -80,7 +80,9 @@ Incentives:
 - Don't want to use Next.js
 - Buitl this React template so I can use for building Algorand Dapps.
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
+The **smart contract** that the template is interacting is just a program that keeps a counter state that can be incremented or decremented by transaction. The link to smart contract [here](https://testnet.algoexplorer.io/application/94122111).
+
+> Note: The contract is deployed on Algorand testnet not mainnet.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
