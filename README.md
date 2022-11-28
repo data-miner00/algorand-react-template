@@ -12,22 +12,22 @@
 <br />
 <div align="center">
   <a href="/">
-    <img src="public/assets/react-esbuild.png" />
+    <img src="public/assets/algorand-react.png" />
   </a>
 
-  <h3 align="center">React-Esbuild Template</h3>
+  <h3 align="center">Algorand React Template</h3>
 
   <p align="center">
     An opionionated React Template that is built for customization!
     <br />
-    <a href="https://github.com/data-miner00/React-Esbuild-Template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/data-miner00/algorand-react-template"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/data-miner00/React-Esbuild-Template">View Demo</a>
+    <a href="https://github.com/data-miner00/algorand-react-template">View Demo</a>
     ·
-    <a href="https://github.com/data-miner00/React-Esbuild-Template/issues">Report Bug</a>
+    <a href="https://github.com/data-miner00/algorand-react-template/issues">Report Bug</a>
     ·
-    <a href="https://github.com/data-miner00/React-Esbuild-Template/issues">Request Feature</a>
+    <a href="https://github.com/data-miner00/algorand-react-template/issues">Request Feature</a>
   </p>
 </div>
 
@@ -61,16 +61,28 @@
 
 ## About The Project
 
-An extremely opinionated combo for building React applications. Focus on the application itself rather than all these low-level configuration stuffs.
+![Before connect wallet](/public/assets/not-connected.png)
+
+Screenshot of the application before connecting to a wallet
+
+![After connect wallet](/public/assets/connected.png)
+
+Screenshot of the application after connecting to a wallet
+
+---
+
+An extremely opinionated template for building Algorand Dapps with React. Focus on the application itself rather than all these low-level configuration stuffs.
 
 Incentives:
 
-- Wanted to build a web portal with Zilliqa.js
+- Wanted to build a web portal with algosdk
 - Don't want to use `create-react-app`
 - Don't want to use Next.js
-- Buitl this React template so I can use for other projects.
+- Buitl this React template so I can use for building Algorand Dapps.
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
+The **smart contract** that the template is interacting is just a program that keeps a counter state that can be incremented or decremented by transaction. The link to smart contract [here](https://testnet.algoexplorer.io/application/94122111).
+
+> Note: The contract is deployed on Algorand testnet not mainnet.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -86,6 +98,8 @@ The technologies and tools used within this template.
 - TailwindCSS
 - Framer Motion
 - GitHub Workflow
+- Algosdk
+- Wallet Connect
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -131,7 +145,7 @@ _To use this template for personal use or contribution, simply perform the follo
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/data-miner00/React-Esbuild-Template.git
+   git clone https://github.com/data-miner00/algorand-react-template.git
    ```
 2. Install Node dependencies
    ```sh
@@ -201,7 +215,7 @@ _To use this template for personal use or contribution, simply perform the follo
 - [x] Add GitHub workflows
 - [ ] Add PWA Manifest
 
-See the [open issues](https://github.com/data-miner00/React-Esbuild-Template/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/data-miner00/algorand-react-template/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -250,21 +264,22 @@ List of resources that are helpful and would like to give credit to.
 - [Pnpm CI](https://pnpm.io/continuous-integration)
 - [global is not defined](https://github.com/WalletConnect/walletconnect-monorepo/issues/1144)
 - [node-stdlib-browser](https://github.com/niksy/node-stdlib-browser#esbuild)
+- [(Advanced) Quest 11: Building and deploying a dApp!](https://app.stackup.dev/quest_page/advanced-quest-11-building-and-deploying-a-dapp-re-run)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/data-miner00/React-Esbuild-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/data-miner00/React-Esbuild-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/data-miner00/React-Esbuild-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/data-miner00/React-Esbuild-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/data-miner00/React-Esbuild-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/data-miner00/React-Esbuild-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/data-miner00/React-Esbuild-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/data-miner00/React-Esbuild-Template/issues
-[license-shield]: https://img.shields.io/github/license/data-miner00/React-Esbuild-Template.svg?style=for-the-badge
-[license-url]: https://github.com/data-miner00/React-Esbuild-Template/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/data-miner00/algorand-react-template.svg?style=for-the-badge
+[contributors-url]: https://github.com/data-miner00/algorand-react-template/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/data-miner00/algorand-react-template.svg?style=for-the-badge
+[forks-url]: https://github.com/data-miner00/algorand-react-template/network/members
+[stars-shield]: https://img.shields.io/github/stars/data-miner00/algorand-react-template.svg?style=for-the-badge
+[stars-url]: https://github.com/data-miner00/algorand-react-template/stargazers
+[issues-shield]: https://img.shields.io/github/issues/data-miner00/algorand-react-template.svg?style=for-the-badge
+[issues-url]: https://github.com/data-miner00/algorand-react-template/issues
+[license-shield]: https://img.shields.io/github/license/data-miner00/algorand-react-template.svg?style=for-the-badge
+[license-url]: https://github.com/data-miner00/algorand-react-template/blob/master/LICENSE.txt
 [product-screenshot]: images/screenshot.png
 [react.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [react-url]: https://reactjs.org/
