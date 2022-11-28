@@ -1,7 +1,7 @@
 {
-  "name": "react-esbuild-template",
+  "name": "algorand-react-template",
   "version": "1.0.0",
-  "description": "Opinionated React Template powered by ESBuild.",
+  "description": "Opinionated Algorand Template powered by React and ESBuild.",
   "main": "src/index.tsx",
   "scripts": {
     "watch": "node esbuild.config.js",
